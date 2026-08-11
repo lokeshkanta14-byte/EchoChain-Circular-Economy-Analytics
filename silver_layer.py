@@ -1,8 +1,11 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, trim
+from pyspark.sql.functions import col, trim, when, regexp_extract
 from functools import reduce
 
-# Create Spark Session
+# ============================================================
+# CREATE SPARK SESSION
+# ============================================================
+
 spark = SparkSession.builder \
     .appName("Electronics Products Silver Layer") \
     .getOrCreate()
@@ -57,8 +60,7 @@ print("Duplicates removed:", before_duplicates - after_duplicates)
 
 before_empty = df.count()
 
-# Use backticks around column names because some columns
-# contain dots such as prices.availability
+# Backticks are required for columns containing dots
 non_null_conditions = [
     col(f"`{column}`").isNotNull()
     for column in df.columns
@@ -134,21 +136,148 @@ print("Trimmed extra spaces from name, brand and categories.")
 
 
 # ============================================================
-# 8. CONVERT PRICE TO NUMERIC TYPE
+# 8. SAFE PRICE TYPE CONVERSION
 # ============================================================
 
 print("\n========== PRICE TYPE CONVERSION ==========")
 
+# Convert only values that contain a valid numeric price.
+# Invalid text such as:
+# "Warranty: 1 Year Manufacturer Warranty"
+# will become NULL instead of causing a Spark error.
+
+price_as_string = trim(col("price").cast("string"))
+
 df = df.withColumn(
     "price",
-    col("price").cast("double")
+    when(
+        price_as_string.rlike(r"^-?\d+(\.\d+)?$"),
+        price_as_string.cast("double")
+    ).otherwise(None)
 )
 
-print("Price converted to numeric type.")
+print("Price converted safely to numeric type.")
+print("Invalid/non-numeric price values converted to NULL.")
 
 
 # ============================================================
-# 9. FINAL RECORD COUNT
+# 9. REMOVE INVALID PRICE RECORDS
+# ============================================================
+
+before_invalid_price = df.count()
+
+df = df.filter(
+    col("price").isNotNull() &
+    (col("price") >= 0)
+)
+
+after_invalid_price = df.count()
+
+print("\n========== INVALID PRICE REMOVAL ==========")
+print("Records before removing invalid prices:",
+      before_invalid_price)
+
+print("Records after removing invalid prices:",
+      after_invalid_price)
+
+print("Invalid price records removed:",
+      before_invalid_price - after_invalid_price)
+
+
+# ============================================================
+# 10. DATA QUALITY VALIDATION
+# ============================================================
+
+print("\n========== DATA QUALITY VALIDATION ==========")
+
+
+# ------------------------------------------------------------
+# Missing values
+# ------------------------------------------------------------
+
+missing_id = df.filter(
+    col("id").isNull()
+).count()
+
+missing_name = df.filter(
+    col("name").isNull()
+).count()
+
+missing_brand = df.filter(
+    col("brand").isNull()
+).count()
+
+missing_categories = df.filter(
+    col("categories").isNull()
+).count()
+
+missing_price = df.filter(
+    col("price").isNull()
+).count()
+
+
+print("\nMissing values:")
+print("ID:", missing_id)
+print("Name:", missing_name)
+print("Brand:", missing_brand)
+print("Categories:", missing_categories)
+print("Price:", missing_price)
+
+
+# ------------------------------------------------------------
+# Duplicate ID check
+# ------------------------------------------------------------
+
+duplicate_ids = (
+    df.groupBy("id")
+      .count()
+      .filter(col("count") > 1)
+      .count()
+)
+
+print("\nDuplicate IDs found:", duplicate_ids)
+
+if duplicate_ids > 0:
+    print(
+        "Note: Duplicate IDs are reported for validation "
+        "but are not removed because the complete records "
+        "may contain different product information."
+    )
+
+
+# ------------------------------------------------------------
+# Invalid price check
+# ------------------------------------------------------------
+
+invalid_prices = df.filter(
+    col("price").isNull() |
+    (col("price") < 0)
+).count()
+
+print("Invalid prices:", invalid_prices)
+
+
+# ============================================================
+# 11. VALIDATION RESULT
+# ============================================================
+
+print("\n========== VALIDATION RESULT ==========")
+
+if (
+    missing_id == 0
+    and missing_name == 0
+    and missing_brand == 0
+    and missing_categories == 0
+    and missing_price == 0
+    and invalid_prices == 0
+):
+    print("DATA QUALITY VALIDATION PASSED")
+else:
+    print("DATA QUALITY VALIDATION REQUIRES ATTENTION")
+
+
+# ============================================================
+# 12. FINAL RECORD COUNT
 # ============================================================
 
 print("\n========== CLEANED RECORD COUNT ==========")
@@ -157,7 +286,7 @@ print("Final records:", df.count())
 
 
 # ============================================================
-# 10. FINAL SCHEMA
+# 13. FINAL SCHEMA
 # ============================================================
 
 print("\n========== FINAL SCHEMA ==========")
@@ -166,7 +295,7 @@ df.printSchema()
 
 
 # ============================================================
-# 11. CLEANED SAMPLE DATA
+# 14. CLEANED SAMPLE DATA
 # ============================================================
 
 print("\n========== CLEANED SAMPLE DATA ==========")
