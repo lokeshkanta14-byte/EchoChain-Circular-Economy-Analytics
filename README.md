@@ -1,20 +1,20 @@
-EchoChain – Circular Economy & Secondary Market Lifecycle Analytics
+**EchoChain – Circular Economy & Secondary Market Lifecycle Analytics**
 
-Project Overview
+**Project Overview**
 
 EchoChain is a Circular Economy and Secondary Market Lifecycle Analytics project focused on analyzing secondary-market electronic products.
 
 The project aims to organize, process, analyze, and visualize secondary-market data to generate meaningful business and lifecycle insights.
 
 ---
-
-My Role
+**
+**My Role****
 
 Role: Team Coordination & Git Repository Management
 
 My responsibility is focused on managing the project repository, coordinating the team, organizing Git branches, and assigning project activities to team members.
 
-Responsibilities
+**Responsibilities**
 
 - Set up and maintain the GitHub repository.
 - Create and manage Git branches for team members.
@@ -24,8 +24,8 @@ Responsibilities
 - Maintain an organized Git workflow for the project.
 
 ---
-
-Week 1 – Project Setup & Team Coordination
+****
+**Week 1 – Project Setup & Team Coordination******
 
 Git Repository Setup
 
@@ -45,7 +45,7 @@ Coordinated with team members regarding assigned tasks, project requirements, pr
 
 ---
 
-Week 1 Deliverables
+**Week 1 Deliverables**
 
 - GitHub repository setup
 - Git branch creation and management
@@ -55,7 +55,7 @@ Week 1 Deliverables
 
 ---
 
-Repository Documentation
+**Repository Documentation**
 
 The project activities are documented through separate Git commits and files:
 
