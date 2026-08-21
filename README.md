@@ -65,3 +65,39 @@ The project activities are documented through separate Git commits and files:
 - "04_team_coordination.md"
 
 These files maintain the detailed record of the work completed during the current project stage.
+**Week 2 – Power BI Data Integration & Loading**
+
+Power BI Desktop was connected to Azure Databricks to access the project data.
+
+**Power BI Data Connection**
+
+- Connected Power BI Desktop with Azure Databricks.
+- Configured the Databricks server connection using the provided Server Hostname and HTTP Path.
+- Used Personal Access Token authentication.
+- Successfully established the connection with the Databricks environment.
+**
+**Data Loading****
+
+- Loaded the required project data into Power BI.
+- Accessed the Bronze and Silver layer tables.
+- Loaded "bronze_electronics_products" data.
+- Loaded "silver_electronics_products" data.
+- Verified the loaded data in Power BI for further analysis and visualization.
+
+---
+
+**Week 2 Deliverables**
+
+- Power BI and Azure Databricks connection completed.
+- Bronze and Silver data accessed successfully.
+- Required project tables loaded into Power BI.
+- Data verified in Power BI for further analysis.
+
+---
+
+**Project Progress**
+
+- Week 1 tasks successfully completed.
+- Week 2 tasks successfully completed.
+- Git repository, team coordination, and initial project setup completed.
+- Power BI data integration and loading completed successfully.
