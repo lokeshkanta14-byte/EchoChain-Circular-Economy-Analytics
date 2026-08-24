@@ -107,3 +107,79 @@ Gold Layer
         |
         v
 Analytics
+
+
+## Week 3 – Silver to Gold Data Preparation
+
+### Objective
+
+Prepare the cleaned Silver-layer electronics product data for Gold-layer processing and downstream fuzzy matching.
+
+### Week 3 Activities
+
+#### 1. Prepare Silver Data
+
+- Loaded the Silver electronics product dataset.
+- Validated the required product columns.
+- Selected the fields required for downstream processing.
+- Validated product names and record counts.
+- Prepared the dataset for fuzzy matching.
+
+#### 2. Standardize Product Names
+
+- Cleaned and standardized product names.
+- Converted product names into a consistent format.
+- Removed unnecessary variations in product-name text.
+- Generated `week3_standardized_names.csv`.
+- Validated all 5,434 records.
+
+#### 3. Prepare and Standardize SKU Data
+
+- Cleaned and standardized SKU values.
+- Prepared SKU data for product matching.
+- Validated the required SKU columns.
+- Generated `week3_sku_prepared.csv`.
+- Validated all 5,434 records.
+
+#### 4. Fuzzy Product Matching
+
+- Implemented fuzzy product matching using RapidFuzz.
+- Compared standardized product names.
+- Generated match scores and match-status information.
+- Created matching group identifiers.
+- Generated `week3_fuzzy_matched.csv`.
+- Validated all 5,434 records.
+
+#### 5. Gold-Ready Processing
+
+- Processed the fuzzy-matched product data.
+- Prepared the final Gold-ready dataset.
+- Validated all required Gold columns.
+- Verified that input and output record counts match.
+- Final output contains 5,434 records.
+- Generated `week3_gold_ready.csv`.
+- Prepared the dataset for Silver → Gold Delta processing in Databricks.
+
+### Week 3 Validation
+
+| Validation | Result |
+|---|---|
+| Silver input records | 5,434 |
+| Standardized-name records | 5,434 |
+| SKU-prepared records | 5,434 |
+| Fuzzy-matched records | 5,434 |
+| Gold-ready records | 5,434 |
+| Record-count validation | PASSED |
+| Final Gold-column validation | PASSED |
+
+### Week 3 Deliverables
+
+- `week3_prepare_silver.py`
+- `week3_standardize_names.py`
+- `week3_prepare_sku.py`
+- `week3_fuzzy_matching.py`
+- `week3_gold_processing.py`
+
+### Week 3 Outcome
+
+The electronics product dataset was successfully prepared from the Silver layer into a validated Gold-ready dataset containing **5,434 records**. The dataset is ready for the next **Silver → Gold Delta processing stage in Databricks**.
