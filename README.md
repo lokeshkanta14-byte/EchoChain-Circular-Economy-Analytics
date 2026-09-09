@@ -101,3 +101,24 @@ Power BI Desktop was connected to Azure Databricks to access the project data.
 - Week 2 tasks successfully completed.
 - Git repository, team coordination, and initial project setup completed.
 - Power BI data integration and loading completed successfully.
+- ## Week 3 – BOM & SKU Integration
+
+### Week 3 Activities
+
+- Established BOM–SKU relationships in Power BI data model.
+- Created the BOM table with component, quantity, and SKU details.
+- Prepared the updated Power BI data model for mid-review.
+- Verified the BOM–SKU relationships and data model.
+
+### Week 3 Deliverables
+
+- BOM table created.
+- BOM–SKU relationships established.
+- Updated Power BI data model.
+- Mid-review preparation completed.
+
+### Project Progress
+
+- Week 1 successfully completed.
+- Week 2 successfully completed.
+- Week 3 successfully completed.
