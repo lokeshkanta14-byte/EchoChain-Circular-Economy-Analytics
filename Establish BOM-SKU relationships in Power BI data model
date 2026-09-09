@@ -1,0 +1,3 @@
+Add BOM-SKU relationship to Power BI data model
+
+Established the relationship between the BOM table and SKU data to support circular economy analysis.
